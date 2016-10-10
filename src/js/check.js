@@ -3,11 +3,11 @@
  */
 'use strict'
 
-var getMessage = function (a, b) {
+window.getMessage = function (a, b) {
 
   if (typeof a === "boolean") {
 
-    if (a === true) {
+    if (a) {
       return "Переданное GIF-изображение анимировано и содержит " + b + " кадров";
     }
     else {
@@ -19,7 +19,7 @@ var getMessage = function (a, b) {
     return "Переданное SVG-изображение содержит " + a + " объектов и " + b*4 + " атрибутов";
   }
 
-  else if (Array.isArray(a) === true && Array.isArray(b) !== true) {
+  else if (Array.isArray(a) === true) {
     var amountOfRedPoints = 0;
     for (var i = 0; i < a.length; i++) {
       amountOfRedPoints += a[i];
