@@ -83,7 +83,7 @@
     var imageWidth = currentResizer._image.naturalWidth;
     var imageHeight = currentResizer._image.naturalHeight;
 
-    resizeFwd.setAttribute('disabled', true);
+    /*resizeFwd.setAttribute('disabled', true);*/
 
     if((x > 0 && y > 0) && (x + size <= imageWidth) && (y + size <= imageHeight)) {
       resizeFwd.removeAttribute('disabled');
@@ -93,15 +93,15 @@
     return false;
   };
 
-  resizeX.onchange = function() {
+  resizeX.oninput = function() {
     resizeFormIsValid();
   };
 
-  resizeY.onchange = function() {
+  resizeY.oninput = function() {
     resizeFormIsValid();
   };
 
-  resizeSize.onchange = function() {
+  resizeSize.oninput = function() {
     resizeFormIsValid();
   };
 
