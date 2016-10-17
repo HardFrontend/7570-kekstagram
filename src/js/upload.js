@@ -95,7 +95,6 @@
 
     return false;
   };
-
   resizeX.oninput = function() {
     resizeFormIsValid();
   };
@@ -107,6 +106,7 @@
   resizeSize.oninput = function() {
     resizeFormIsValid();
   };
+
 
   /**
    * Форма загрузки изображения.
@@ -186,6 +186,7 @@
           cleanupResizer();
 
           currentResizer = new Resizer(fileReader.result);
+          resizeFormIsValid();
           currentResizer.setElement(resizeForm);
           uploadMessage.classList.add('invisible');
 
