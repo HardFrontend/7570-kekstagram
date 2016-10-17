@@ -71,9 +71,42 @@
    * Проверяет, валидны ли данные, в форме кадрирования.
    * @return {boolean}
    */
+  var resizeX = document.getElementById('resize-x');
+  var resizeY = document.getElementById('resize-y');
+  var resizeSize = document.getElementById('resize-size');
+  var resizeFwd = document.getElementById('resize-fwd');
+  resizeFwd.disabled = true;
+  resizeX.required = resizeY.required = resizeSize.required = true;
+
+  resizeX.min = resizeY.min = 0;
+  resizeSize.min = 10;
+
   var resizeFormIsValid = function() {
-    return true;
+    var imageWidth = currentResizer._image.naturalWidth;
+    var imageHeight = currentResizer._image.naturalHeight;
+    resizeX.max = imageWidth - parseInt(resizeSize.value, 10);
+    resizeY.max = imageHeight - parseInt(resizeSize.value, 10);
+    resizeFwd.disabled = true;
+
+    if(resizeX.validity.valid && resizeY.validity.valid && resizeSize.validity.valid) {
+      resizeFwd.disabled = false;
+      return true;
+    }
+
+    return false;
   };
+  resizeX.oninput = function() {
+    resizeFormIsValid();
+  };
+
+  resizeY.oninput = function() {
+    resizeFormIsValid();
+  };
+
+  resizeSize.oninput = function() {
+    resizeFormIsValid();
+  };
+
 
   /**
    * Форма загрузки изображения.
@@ -153,6 +186,7 @@
           cleanupResizer();
 
           currentResizer = new Resizer(fileReader.result);
+          resizeFormIsValid();
           currentResizer.setElement(resizeForm);
           uploadMessage.classList.add('invisible');
 
