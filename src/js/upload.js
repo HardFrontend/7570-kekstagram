@@ -317,5 +317,3 @@
   updateBackground();
 })();
 
-console.log( Math.floor((new Date() - new Date(new Date().getFullYear(), 11, 9)) / (24 * 60 * 60 * 1000)));
-
