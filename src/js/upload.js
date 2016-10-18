@@ -300,14 +300,9 @@
 
     // Дата для куки
     var now = new Date();
-    var birthdayGrase = new Date(now.getFullYear(), 11, 9);
+    var birthdayGraсe = new Date(now.getFullYear(), 11, 9);
     var stayCookie;
-    if (now > birthdayGrase) {
-      birthdayGrase.setFullYear(birthdayGrase.getFullYear());
-    } else {
-      birthdayGrase.setFullYear(birthdayGrase.getFullYear() - 1);
-    }
-    stayCookie = Math.floor((now - birthdayGrase) / (24 * 60 * 60 * 1000));
+    stayCookie = Math.floor((now - birthdayGraсe) / (24 * 60 * 60 * 1000));
     // Последний выбранный фильтр добавлен в куки
     var selectedFilter = [].filter.call(filterForm['upload-filter'], function(item) {
       return item.checked;
