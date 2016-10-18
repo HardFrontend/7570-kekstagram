@@ -24,6 +24,11 @@
   };
 
   /**
+   * Значение куки с имененм upload-filter
+   */
+  var cookiesValue = window.Cookies.get('upload-filter');
+
+  /**
    * Регулярное выражение, проверяющее тип загружаемого файла. Составляется
    * из ключей FileType.
    * @type {RegExp}
@@ -106,6 +111,7 @@
   resizeSize.oninput = function() {
     resizeFormIsValid();
   };
+
 
 
   /**
@@ -224,6 +230,7 @@
    * кропнутое изображение в форму добавления фильтра и показывает ее.
    * @param {Event} evt
    */
+
   resizeForm.onsubmit = function(evt) {
     evt.preventDefault();
 
@@ -239,6 +246,12 @@
 
       resizeForm.classList.add('invisible');
       filterForm.classList.remove('invisible');
+    }
+    // Активный прошлый фильтр
+    if (cookiesValue) {
+      var elementFromCookie = document.getElementById('upload-filter-' + cookiesValue);
+      elementFromCookie.checked = true;
+      filterImage.className = 'filter-image-preview filter-' + cookiesValue;
     }
   };
 
@@ -285,16 +298,22 @@
       };
     }
 
+    // Дата для куки
+    var now = new Date();
+    var birthdayGraсe = new Date(now.getFullYear(), 11, 9);
+    var stayCookie;
+    stayCookie = Math.floor((now - birthdayGraсe) / (24 * 60 * 60 * 1000));
+    // Последний выбранный фильтр добавлен в куки
     var selectedFilter = [].filter.call(filterForm['upload-filter'], function(item) {
       return item.checked;
     })[0].value;
-
+    window.Cookies.set('upload-filter', selectedFilter, {expires: stayCookie});
     // Класс перезаписывается, а не обновляется через classList потому что нужно
     // убрать предыдущий примененный класс. Для этого нужно или запоминать его
     // состояние или просто перезаписывать.
     filterImage.className = 'filter-image-preview ' + filterMap[selectedFilter];
   };
-
   cleanupResizer();
   updateBackground();
 })();
+
