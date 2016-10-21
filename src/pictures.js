@@ -107,7 +107,6 @@ var pictures = [{
   'preview': 'photos/26.jpg'
 }];
 
-
 var filters = document.querySelector('.filters');
 /*
 var pictures = [];
@@ -124,10 +123,10 @@ var getPicturesElement = function(picture) {
   pictureElement.querySelector('.picture-likes').textContent = picture.likes;
 
   var image = new Image(182, 182);
-  pictureElement.querySelector('img').src = picture.url;
+  image.src = picture.url;
 
   image.onload = function() {
-    pictureElement.querySelector('img').src = picture.preview;
+    pictureElement.querySelector('img').src = picture.preview ? picture.preview : picture.url;
   };
 
   image.onerror = function() {
@@ -144,3 +143,4 @@ var renderPictures = function(pictures) {
 };
 
 renderPictures(pictures);
+filters.classList.remove('hidden');
