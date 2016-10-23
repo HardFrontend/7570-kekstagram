@@ -119,6 +119,7 @@ filters.classList.add('hidden');
 var getPicturesElement = function(picture) {
 
   var pictureElement = templateContainer.querySelector('.picture').cloneNode(true);
+  var imgEl = pictureElement.querySelector('img');
   pictureElement.querySelector('.picture-comments').textContent = picture.comments;
   pictureElement.querySelector('.picture-likes').textContent = picture.likes;
 
@@ -126,7 +127,7 @@ var getPicturesElement = function(picture) {
   pictureElement.querySelector('img').src = picture.url;
 
   image.onload = function() {
-    pictureElement.querySelector('img').src = picture.preview ? picture.preview : picture.url;
+    pictureElement.replaceChild(image, imgEl);
   };
 
   image.onerror = function() {
