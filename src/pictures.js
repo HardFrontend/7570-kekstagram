@@ -123,7 +123,7 @@ var getPicturesElement = function(picture) {
   pictureElement.querySelector('.picture-likes').textContent = picture.likes;
 
   var image = new Image(182, 182);
-  image.src = picture.url;
+  pictureElement.querySelector('img').src = picture.url;
 
   image.onload = function() {
     pictureElement.querySelector('img').src = picture.preview ? picture.preview : picture.url;
@@ -132,6 +132,7 @@ var getPicturesElement = function(picture) {
   image.onerror = function() {
     pictureElement.classList.add('picture-load-failure');
   };
+  image.src = picture.url;
   return pictureElement;
 };
 
