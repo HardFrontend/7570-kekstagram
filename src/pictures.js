@@ -133,7 +133,7 @@ var getPicturesElement = function(picture) {
   image.onerror = function() {
     pictureElement.classList.add('picture-load-failure');
   };
-  image.src = picture.url;
+  image.src = picture.preview ? picture.preview : picture.url;
   return pictureElement;
 };
 
