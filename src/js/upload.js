@@ -300,10 +300,17 @@
 
     // Дата для куки
     var now = new Date();
-    var birthdayGraсe = new Date(now.getFullYear(), 11, 9);
+
+    var birthdayGraсe = new Date(now.getFullYear(), 10, 29);
     var stayCookie;
-    stayCookie = Math.floor((now - birthdayGraсe) / (24 * 60 * 60 * 1000));
-    // Последний выбранный фильтр добавлен в куки
+
+    if (birthdayGraсe > now) {
+      birthdayGraсe.setFullYear(birthdayGraсe.getFullYear() - 1);
+    } else {
+      birthdayGraсe.setFullYear(birthdayGraсe.getFullYear());
+    }
+
+    stayCookie = Math.floor(now - birthdayGraсe);
     var selectedFilter = [].filter.call(filterForm['upload-filter'], function(item) {
       return item.checked;
     })[0].value;
@@ -312,8 +319,13 @@
     // убрать предыдущий примененный класс. Для этого нужно или запоминать его
     // состояние или просто перезаписывать.
     filterImage.className = 'filter-image-preview ' + filterMap[selectedFilter];
+    console.log(stayCookie);
+
   };
+
   cleanupResizer();
   updateBackground();
+
 })();
+
 
