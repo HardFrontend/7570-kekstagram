@@ -301,7 +301,7 @@
     // Дата для куки
     var now = new Date();
 
-    var birthdayGraсe = new Date(now.getFullYear(), 10, 29);
+    var birthdayGraсe = new Date(now.getFullYear(), 11, 9);
     var stayCookie;
 
     if (birthdayGraсe > now) {
