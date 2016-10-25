@@ -124,7 +124,6 @@ var getPicturesElement = function(picture) {
   pictureElement.querySelector('.picture-likes').textContent = picture.likes;
 
   var image = new Image(182, 182);
-  pictureElement.querySelector('img').src = picture.url;
 
   image.onload = function() {
     pictureElement.replaceChild(image, imgEl);
