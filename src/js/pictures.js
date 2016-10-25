@@ -137,8 +137,8 @@ var getPicturesElement = function(picture) {
 };
 
 
-var renderPictures = function(pictures) {
-  pictures.forEach(function(picture) {
+var renderPictures = function(_pictures) {
+  _pictures.forEach(function(picture) {
     container.appendChild(getPicturesElement(picture));
   });
 };
