@@ -310,7 +310,7 @@
       birthdayGraсe.setFullYear(birthdayGraсe.getFullYear());
     }
 
-    stayCookie = Math.floor(now - birthdayGraсe);
+    stayCookie = Math.floor(now - birthdayGraсe) / (24 * 60 * 60 * 1000);
     var selectedFilter = [].filter.call(filterForm['upload-filter'], function(item) {
       return item.checked;
     })[0].value;
