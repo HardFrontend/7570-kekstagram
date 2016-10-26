@@ -10,7 +10,6 @@ var template = document.querySelector('template');
 var templateContainer = 'content' in template ? template.content : template;
 filters.classList.add('hidden');
 
-
 var getPicturesElement = function(picture) {
 
   var pictureElement = templateContainer.querySelector('.picture').cloneNode(true);
@@ -38,7 +37,6 @@ var renderPictures = function(_pictures) {
 };
 
 /*renderPictures(pictures);*/
-filters.classList.remove('hidden');
 
 var PICTURE_LOAD_URL = 'http://localhost:1507/api/pictures?callback=callbackName';
 
@@ -54,3 +52,4 @@ var load = function(url, callback) {
 };
 
 load(PICTURE_LOAD_URL, renderPictures);
+filters.classList.remove('hidden');
