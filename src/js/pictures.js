@@ -1,6 +1,6 @@
 'use strict';
 
-
+var PICTURE_LOAD_URL = 'http://localhost:1507/api/pictures?callback=callbackName';
 var filters = document.querySelector('.filters');
 
 //var pictures = [];
@@ -34,11 +34,10 @@ var renderPictures = function(_pictures) {
   _pictures.forEach(function(picture) {
     container.appendChild(getPicturesElement(picture));
   });
+  filters.classList.remove('hidden');
 };
 
 /*renderPictures(pictures);*/
-
-var PICTURE_LOAD_URL = 'http://localhost:1507/api/pictures?callback=callbackName';
 
 var load = function(url, callback) {
   window.callbackName = function(data) {
@@ -52,4 +51,4 @@ var load = function(url, callback) {
 };
 
 load(PICTURE_LOAD_URL, renderPictures);
-filters.classList.remove('hidden');
+
