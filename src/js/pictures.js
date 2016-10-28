@@ -2,7 +2,7 @@
 var filters = document.querySelector('.filters');
 var load = require('./load');
 var getPicturesElement = require('./picture');
-var PICTURE_LOAD_URL = 'http://localhost:1507/api/pictures?callback=callbackName';
+var PICTURE_LOAD_URL = 'http://localhost:1507/api/pictures';
 
 var container = document.querySelector('.pictures');
 filters.classList.add('hidden');
