@@ -22,7 +22,7 @@ var getPicturesElement = function(picture) {
   image.src = picture.preview ? picture.preview : picture.url;
 
   image.onclick = function() {
-    gallery.show();
+    gallery.show(imgEl);
   };
   return pictureElement;
 };
