@@ -21,7 +21,7 @@ var getPicturesElement = function(picture) {
 
   image.src = picture.preview ? picture.preview : picture.url;
 
-  image.onclick = function(event) {
+  image.onclick = function() {
     gallery.show();
   };
   return pictureElement;
