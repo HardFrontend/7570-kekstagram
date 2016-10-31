@@ -65,12 +65,12 @@ Gallery.prototype.setActivePicture = function(index) {
 };
 
 
-/*var imgEl = document.querySelector('img');
-var renderPictures = require('./picture');
+var renderPictures = require('./pictures');
+var imageId = require('./pictures');
 
 renderPictures.onclick = function() {
-  gallery.show(imgEl);
-};*/
+  gallery.show(imageId);
+};
 
 module.exports = new Gallery();
 

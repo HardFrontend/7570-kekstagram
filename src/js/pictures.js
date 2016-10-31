@@ -9,8 +9,8 @@ var container = document.querySelector('.pictures');
 filters.classList.add('hidden');
 
 var renderPictures = function(_pictures) {
-  _pictures.forEach(function(picture) {
-    container.appendChild(getPicturesElement(picture));
+  _pictures.forEach(function(picture, imageId) {
+    container.appendChild(getPicturesElement(picture, imageId));
   });
 
   gallery.setPictures(_pictures);
