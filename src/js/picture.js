@@ -1,4 +1,5 @@
 'use strict';
+var gallery = require('./gallery');
 
 var getPicturesElement = function(picture) {
   var template = document.querySelector('template');
@@ -17,8 +18,14 @@ var getPicturesElement = function(picture) {
   image.onerror = function() {
     pictureElement.classList.add('picture-load-failure');
   };
+
   image.src = picture.preview ? picture.preview : picture.url;
+
+  image.onclick = function(event) {
+    gallery.show();
+  };
   return pictureElement;
 };
+
 
 module.exports = getPicturesElement;
