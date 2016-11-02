@@ -19,4 +19,3 @@ var renderPictures = function(_pictures) {
 
 load(PICTURE_LOAD_URL, renderPictures);
 
-module.exports = renderPictures;
