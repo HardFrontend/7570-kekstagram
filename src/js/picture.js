@@ -21,7 +21,9 @@ var getPicturesElement = function(picture, pictureId) {
 
   image.onclick = function(event) {
     event.preventDefault();
-    gallery.show(pictureId);
+    if(!pictureElement.classList.contains('picture-load-failure')) {
+      gallery.show(pictureId);
+    }
   };
 
   image.src = picture.preview ? picture.preview : picture.url;
