@@ -1,7 +1,7 @@
 'use strict';
 var gallery = require('./gallery');
 
-var getPicturesElement = function(picture, pictureId) {
+var getPicturesElement = function(picture) {
   var template = document.querySelector('template');
   var templateContainer = 'content' in template ? template.content : template;
   var pictureElement = templateContainer.querySelector('.picture').cloneNode(true);
@@ -18,16 +18,29 @@ var getPicturesElement = function(picture, pictureId) {
   image.onerror = function() {
     pictureElement.classList.add('picture-load-failure');
   };
-
-  pictureElement.onclick = function(event) {
+/*  image.onclick = function(event) {
     event.preventDefault();
     if(!pictureElement.classList.contains('picture-load-failure')) {
       gallery.show(pictureId);
     }
-  };
-
+  };*/
   image.src = picture.preview || picture.url;
   return pictureElement;
 };
 
-module.exports = getPicturesElement;
+var Picture = function(image, imgEl) {
+  this.data = image;
+  this.element = getPicturesElement(this.data, imgEl);
+  this.element.onclick = function(event) {
+    event.preventDefault();
+    if(!this.classList.contains('picture-load-failure')) {
+      gallery.show(imgEl);
+    }
+  };
+
+  this.remove = function() {
+    this.element.onclick = null;
+  };
+};
+
+module.exports = Picture;
