@@ -14,7 +14,7 @@ Gallery.prototype.setPictures = function(pictures) {
 };
 
 
-Gallery.prototype.show = function(index) {
+Gallery.prototype.show = function(activePicture) {
   var self = this;
   galleryClose.onclick = function() {
     self.hide();
@@ -22,19 +22,16 @@ Gallery.prototype.show = function(index) {
   gallery.classList.remove('invisible');
 
   galleryImage.onclick = function() {
-    if(index < self.pictures.length - 1) {
-      self.setActivePicture(++index);
+    if(activePicture < self.pictures.length - 1) {
+      self.setActivePicture(++activePicture);
     } else {
-      index = 0;
+      activePicture = 0;
       self.setActivePicture(0);
     }
-    console.log(index);
+    console.log(activePicture);
   };
-  this.setActivePicture(index);
-/*
-  galleryImage.onerror = function() {
-    self.setActivePicture.insertAdjacentHTML('afterbegin', '<div class="gallery-load-failure"></div>');
-  };*/
+  this.setActivePicture(activePicture);
+
 };
 
 

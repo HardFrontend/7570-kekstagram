@@ -19,14 +19,14 @@ var getPicturesElement = function(picture, pictureId) {
     pictureElement.classList.add('picture-load-failure');
   };
 
-  image.onclick = function(event) {
+  pictureElement.onclick = function(event) {
     event.preventDefault();
     if(!pictureElement.classList.contains('picture-load-failure')) {
       gallery.show(pictureId);
     }
   };
 
-  image.src = picture.preview ? picture.preview : picture.url;
+  image.src = picture.preview || picture.url;
   return pictureElement;
 };
 
