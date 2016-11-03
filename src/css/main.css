@@ -696,3 +696,16 @@ input[type=radio]:checked + .upload-filter-label .upload-filter-preview {
 .footer-social-item-vk {
   background-position: -84px 0;
 }
+
+.gallery-load-failure {
+  background: #000000 url(../img/icon-cross.png) no-repeat center;
+  width: 182px;
+  height: 182px;
+  margin: 15px auto;
+}
+
+.gallery-load-failure img {
+  display: none;
+  width: 182px;
+  height: 182px;
+}
