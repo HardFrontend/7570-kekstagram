@@ -21,9 +21,8 @@ Gallery.prototype.show = function(index) {
 
   galleryImage.onclick = function() {
     if(activePicture < self.pictures.length - 1) {
-      self.setActivePicture(++activePicture);
+      self.setActivePicture(activePicture + 1);
     } else {
-      activePicture = 0;
       self.setActivePicture(0);
     }
   };
