@@ -1,7 +1,7 @@
 'use strict';
 var filters = document.querySelector('.filters');
 var load = require('./load');
-var getPicturesElement = require('./picture');
+var Picture = require('./picture');
 var PICTURE_LOAD_URL = 'http://localhost:1507/api/pictures';
 var gallery = require('./gallery.js');
 
@@ -10,7 +10,7 @@ filters.classList.add('hidden');
 
 var renderPictures = function(_pictures) {
   _pictures.forEach(function(picture, imageId) {
-    container.appendChild(getPicturesElement(picture, imageId));
+    container.appendChild(new Picture(picture, imageId).element);
   });
 
   gallery.setPictures(_pictures);
