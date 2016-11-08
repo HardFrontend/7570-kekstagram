@@ -28,13 +28,13 @@ var getPicturesElement = function(picture) {
   return pictureElement;
 };
 
-var Picture = function(image, imgEl) {
+var Picture = function(image, imageId) {
   this.data = image;
-  this.element = getPicturesElement(this.data, imgEl);
+  this.element = getPicturesElement(this.data, imageId);
   this.element.onclick = function(event) {
     event.preventDefault();
     if(!this.classList.contains('picture-load-failure')) {
-      gallery.show(imgEl);
+      gallery.show(imageId);
     }
   };
 
