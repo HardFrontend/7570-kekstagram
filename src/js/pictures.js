@@ -11,7 +11,7 @@ var pageNumber = 0;
 var container = document.querySelector('.pictures');
 filters.classList.add('hidden');
 
-var renderPictures = function(_pictures, replace) {
+var renderPictures = function(_pictures, page, replace) {
   if (replace) {
     picturesContainer.innerHTML = '';
   }
@@ -49,5 +49,5 @@ var setScrollEnabled = function(_pictures) {
 
 
 
-load(PICTURE_LOAD_URL, renderPictures, setScrollEnabled());
+load(PICTURE_LOAD_URL, renderPictures, params );
 
