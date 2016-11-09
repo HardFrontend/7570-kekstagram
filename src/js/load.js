@@ -6,7 +6,7 @@ var getStringSearch = function(params) {
     return [param, params(param)].join('=');
   }).join('&');
 };
-var load = function(url, callback, params ) {
+var load = function(url, params, callback ) {
   var xhr = new XMLHttpRequest();
   url += '?' + getStringSearch(params);
   xhr.onload = function(evt) {
