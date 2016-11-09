@@ -8,6 +8,8 @@ var gallery = require('./gallery.js');
 var PAGE_SIZE = 12;
 var lastPageReached = false;
 var currentPage = 0;
+var THROTTLE_DELAY = 100;
+var allPictures = [];
 
 var getParams = function() {
   return {
@@ -20,15 +22,15 @@ var getParams = function() {
 var container = document.querySelector('.pictures');
 filters.classList.add('hidden');
 
-var renderPictures = function(_pictures, replace) {
+var renderPictures = function(_pictures, allPictures, replace) {
   if (replace) {
-    picturesContainer.innerHTML = '';
+    container.innerHTML = '';
   }
   _pictures.forEach(function(picture, imageId) {
     container.appendChild( new Picture(picture, currentPage * PAGE_SIZE + imageId).element);
   });
 
-  gallery.setPictures(_pictures);
+  gallery.setPictures(allPictures);
   filters.classList.remove('hidden');
 };
 
@@ -39,18 +41,28 @@ var isBottomReached = function() {
   return footerPosition.top - window.innerHeight - GAP <= 0;
 };
 
-var processData = function(data) {
+var processData = function(data, _pictures) {
   if(data.length < 12) {
     lastPageReached = true;
   }
-  renderPictures(data);
+  allPictures = allPictures.concat(_pictures);
+  renderPictures(data, allPictures);
 };
 
-window.addEventListener('scroll', function(evt) {
-  if (!lastPageReached) {
-    currentPage++;
-    load(PICTURE_LOAD_URL, getParams(), processData);
-  }
-});
+var setScrollEnabled = function() {
+  var lastCall = Date.now();
+  window.addEventListener('scroll', function(evt) {
+    if (Date.now() - lastCall >= THROTTLE_DELAY) {
 
-load(PICTURE_LOAD_URL, getParams(), processData);
+      if ((isBottomReached())) {
+        currentPage++;
+        load(PICTURE_LOAD_URL, getParams(), processData, setScrollEnabled());
+      }
+
+      lastCall = Date.now();
+    }
+  });
+};
+
+
+load(PICTURE_LOAD_URL, getParams(), processData, setScrollEnabled());
