@@ -47,9 +47,9 @@ var processData = function(data) {
 };
 
 window.addEventListener('scroll', function(evt) {
-  if (!lastPageReached === true ) {
+  if (!lastPageReached) {
     currentPage++;
-    renderPictures();
+    load(PICTURE_LOAD_URL, getParams(), processData);
   }
 });
 
