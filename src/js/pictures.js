@@ -6,16 +6,16 @@ var picturesContainer = document.querySelector('.pictures');
 var PICTURE_LOAD_URL = 'http://localhost:1507/api/pictures';
 var gallery = require('./gallery.js');
 var PAGE_SIZE = 12;
+var lastPageReached = false;
 var currentPage = 0;
 
-var getParams = function(currentPage, filter) {
-  var from = currentPage * PAGE_SIZE;
-  var to = from + PAGE_SIZE;
-  return [from, to];
+var getParams = function() {
+  return {
+    from: currentPage * PAGE_SIZE,
+    to: currentPage * PAGE_SIZE + PAGE_SIZE,
+    filter: 'filter-popular'
+  };
 };
-
-console.log(currentPage);
-
 
 var container = document.querySelector('.pictures');
 filters.classList.add('hidden');
@@ -25,30 +25,32 @@ var renderPictures = function(_pictures, replace) {
     picturesContainer.innerHTML = '';
   }
   _pictures.forEach(function(picture, imageId) {
-    container.appendChild( new Picture(picture, imageId).element);
+    container.appendChild( new Picture(picture, currentPage * PAGE_SIZE + imageId).element);
   });
 
   gallery.setPictures(_pictures);
   filters.classList.remove('hidden');
 };
 
-var isNextPageAvailable = function(_pictures) {
-  return currentPage <= Math.floor(_pictures.length / PAGE_SIZE);
-};
-
 var isBottomReached = function() {
   var GAP = 100;
   var footerElement = document.querySelector('footer');
   var footerPosition = footerElement.getBoundingClientRect();
-  return footerPosition.top - window.innerHeight - 100 <= 0;
+  return footerPosition.top - window.innerHeight - GAP <= 0;
 };
 
-window.addEventListener('scroll', function(_pictures, evt) {
-  if (isBottomReached() &&
-      isNextPageAvailable(_pictures, currentPage, PAGE_SIZE)) {
+var processData = function(data) {
+  if(data.length < 12) {
+    lastPageReached = true;
+  }
+  renderPictures(data);
+};
+
+window.addEventListener('scroll', function(evt) {
+  if (!lastPageReached === true ) {
     currentPage++;
-    renderPictures(_pictures, currentPage);
+    renderPictures();
   }
 });
 
-load(PICTURE_LOAD_URL, getParams, renderPictures );
+load(PICTURE_LOAD_URL, getParams(), processData);

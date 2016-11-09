@@ -1,9 +1,8 @@
 'use strict';
 
-
 var getStringSearch = function(params) {
   return Object.keys(params).map(function(param) {
-    return [param, params(param)].join('=');
+    return [param, params[param]].join('=');
   }).join('&');
 };
 var load = function(url, params, callback ) {
