@@ -23,11 +23,14 @@ var getParams = function() {
 var container = document.querySelector('.pictures');
 filters.classList.add('hidden');
 
-var renderPictures = function(_pictures, allPictures, replace) {
-  if (replace) {
+var renderPictures = function(_picture, allPictures, replace) {
+  if (currentPage === 0) {
     container.innerHTML = '';
   }
-  _pictures.forEach(function(picture, imageId) {
+  if(currentPage === 0) {
+    allPictures = [];
+  }
+  _picture.forEach(function(picture, imageId) {
     container.appendChild( new Picture(picture, currentPage * PAGE_SIZE + imageId).element);
   });
 
@@ -36,33 +39,59 @@ var renderPictures = function(_pictures, allPictures, replace) {
 };
 
 var isBottomReached = function() {
-  var GAP = 100;
+  var GAP = 150;
   var footerElement = document.querySelector('footer');
   var footerPosition = footerElement.getBoundingClientRect();
   return footerPosition.top - window.innerHeight - GAP <= 0;
 };
 
 var processData = function(data, _pictures) {
-  if(data.length < 12) {
+  if(data.length < PAGE_SIZE) {
     lastPageReached = true;
   }
+
+  console.log(currentPage);
   if(currentPage === 0) {
     allPictures = [];
+  } else {
+    allPictures = allPictures.concat(_pictures);
   }
-  allPictures = allPictures.concat(_pictures);
+
   renderPictures(data, allPictures);
+  console.log(renderPictures);
+
 };
 
-window.addEventListener('scroll', function(evt) {
+var loadMorePictures = function() {
+  if (isBottomReached() && !lastPageReached) {
+    currentPage++;
+    load(PICTURE_LOAD_URL, getParams(), function(data) {
+      processData(data);
+      loadMorePictures();
+    });
+  }
+};
+
+window.addEventListener('scroll', function() {
   if (Date.now() - lastCall >= THROTTLE_DELAY) {
-
-    if (isBottomReached() && !lastPageReached) {
-      currentPage++;
-      load(PICTURE_LOAD_URL, getParams(), processData);
-    }
-
+    loadMorePictures();
     lastCall = Date.now();
   }
 });
 
+/*var changeFilter = function(filterID) {
+ container.innerHTML = '';
+ activeFilter = filterID;
+ currentPage = 0;
+ getParams(filterID, currentPage);
+ };
+
+ filters.addEventListener('change', function(evt) {
+ if(evt.target.classList.contains('filters-radio')) {
+ changeFilter(evt.target.id);
+ }
+ }, true);*/
+
 load(PICTURE_LOAD_URL, getParams(), processData);
+
+loadMorePictures();
