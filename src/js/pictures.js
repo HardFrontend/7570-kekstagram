@@ -10,6 +10,7 @@ var lastPageReached = false;
 var currentPage = 0;
 var THROTTLE_DELAY = 100;
 var allPictures = [];
+var lastCall = Date.now();
 
 var getParams = function() {
   return {
@@ -45,24 +46,23 @@ var processData = function(data, _pictures) {
   if(data.length < 12) {
     lastPageReached = true;
   }
+  if(currentPage === 0) {
+    allPictures = [];
+  }
   allPictures = allPictures.concat(_pictures);
   renderPictures(data, allPictures);
 };
 
-var setScrollEnabled = function() {
-  var lastCall = Date.now();
-  window.addEventListener('scroll', function(evt) {
-    if (Date.now() - lastCall >= THROTTLE_DELAY) {
+window.addEventListener('scroll', function(evt) {
+  if (Date.now() - lastCall >= THROTTLE_DELAY) {
 
-      if (isBottomReached() && !lastPageReached) {
-        currentPage++;
-        load(PICTURE_LOAD_URL, getParams(), processData, setScrollEnabled());
-      }
-
-      lastCall = Date.now();
+    if (isBottomReached() && !lastPageReached) {
+      currentPage++;
+      load(PICTURE_LOAD_URL, getParams(), processData);
     }
-  });
-};
 
+    lastCall = Date.now();
+  }
+});
 
-load(PICTURE_LOAD_URL, getParams(), processData, setScrollEnabled());
+load(PICTURE_LOAD_URL, getParams(), processData);
