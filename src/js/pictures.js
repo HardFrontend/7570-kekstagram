@@ -54,7 +54,7 @@ var setScrollEnabled = function() {
   window.addEventListener('scroll', function(evt) {
     if (Date.now() - lastCall >= THROTTLE_DELAY) {
 
-      if ((isBottomReached())) {
+      if (isBottomReached() && !lastPageReached) {
         currentPage++;
         load(PICTURE_LOAD_URL, getParams(), processData, setScrollEnabled());
       }
