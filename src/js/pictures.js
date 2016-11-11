@@ -11,12 +11,13 @@ var currentPage = 0;
 var THROTTLE_DELAY = 100;
 var allPictures = [];
 var lastCall = Date.now();
+var activeFilter = 'filter-popular';
 
 var getParams = function() {
   return {
     from: currentPage * PAGE_SIZE,
     to: currentPage * PAGE_SIZE + PAGE_SIZE,
-    filter: 'filter-popular'
+    filter: activeFilter
   };
 };
 
@@ -66,17 +67,20 @@ window.addEventListener('scroll', function() {
   }
 });
 
-/*var changeFilter = function(filterID) {
- container.innerHTML = '';
- activeFilter = filterID;
- currentPage = 0;
- getParams(filterID, currentPage);
- };
+var changeFilter = function(filterID) {
+  allPictures = [];
+  activeFilter = filterID;
+  currentPage = 0;
+  getParams(activeFilter);
+  console.log(filterID);
+  console.log(getParams(activeFilter));
+};
 
- filters.addEventListener('change', function(evt) {
- if(evt.target.classList.contains('filters-radio')) {
- changeFilter(evt.target.id);
- }
- }, true);*/
+
+filters.addEventListener('change', function(evt) {
+  if(evt.target.classList.contains('filters-radio')) {
+    changeFilter(evt.target.id);
+  }
+}, true);
 
 load(PICTURE_LOAD_URL, getParams(), processData);
