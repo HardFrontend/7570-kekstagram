@@ -5,6 +5,7 @@ var getStringSearch = function(params) {
     return [param, params[param]].join('=');
   }).join('&');
 };
+
 var load = function(url, params, callback ) {
   var xhr = new XMLHttpRequest();
   url += '?' + getStringSearch(params);
@@ -15,10 +16,6 @@ var load = function(url, params, callback ) {
 
   xhr.open('GET', url);
   xhr.send();
-/*
-  var script = document.createElement('script');
-  script.src = url + '?callback=' + callbackName;
-  document.body.appendChild(script);*/
 };
 
 module.exports = load;

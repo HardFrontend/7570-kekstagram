@@ -26,9 +26,8 @@ filters.classList.add('hidden');
 
 var renderPictures = function(_picture) {
   if(currentPage === 0) {
-    allPictures = [];
+    picturesContainer.innerHTML = '';
   }
-
   _picture.forEach(function(picture, imageId) {
     container.appendChild( new Picture(picture, currentPage * PAGE_SIZE + imageId).element);
   });
