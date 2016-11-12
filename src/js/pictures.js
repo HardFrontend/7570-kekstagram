@@ -25,6 +25,9 @@ var container = document.querySelector('.pictures');
 filters.classList.add('hidden');
 
 var renderPictures = function(_picture) {
+  if(currentPage === 0) {
+    allPictures = [];
+  }
 
   _picture.forEach(function(picture, imageId) {
     container.appendChild( new Picture(picture, currentPage * PAGE_SIZE + imageId).element);
@@ -68,14 +71,15 @@ window.addEventListener('scroll', function() {
 });
 
 var changeFilter = function(filterID) {
-  allPictures = [];
+  lastPageReached = false;
   activeFilter = filterID;
   currentPage = 0;
+  allPictures = [];
   getParams(activeFilter);
-  console.log(filterID);
+  console.log(activeFilter);
   console.log(getParams(activeFilter));
+  load(PICTURE_LOAD_URL, getParams(), processData);
 };
-
 
 filters.addEventListener('change', function(evt) {
   if(evt.target.classList.contains('filters-radio')) {

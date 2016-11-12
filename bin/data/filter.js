@@ -37,3 +37,7 @@ function sortByPopular(a, b) {
 function sortByDate(a, b) {
   return new Date(b.created) - new Date(a.created);
 }
+
+function sortByDiscussed(a, b) {
+  return b.comments - a.comments;
+}
