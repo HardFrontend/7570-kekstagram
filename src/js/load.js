@@ -1,15 +1,23 @@
 'use strict';
 
-var load = function(url, callback, callbackName) {
-  callbackName = 'cb';
+var getStringSearch = function(params) {
+  return Object.keys(params).map(function(param) {
+    return [param, params[param]].join('=');
+  }).join('&');
+};
 
-  window[callbackName] = function(data) {
-    callback(data);
+var load = function(url, params, callback ) {
+  var xhr = new XMLHttpRequest();
+  url += '?' + getStringSearch(params);
+  xhr.onload = function(evt) {
+    var loadData = JSON.parse(evt.target.response);
+    callback(loadData);
   };
 
-  var script = document.createElement('script');
-  script.src = url + '?callback=' + callbackName;
-  document.body.appendChild(script);
+  xhr.open('GET', url);
+  xhr.send();
 };
 
 module.exports = load;
+
+
