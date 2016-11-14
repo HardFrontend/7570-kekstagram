@@ -107,9 +107,10 @@
   window.addEventListener('resizerchange', function() {
     var constraint = currentResizer.getConstraint();
 
-    resizeX.value = constraint.x;
-    resizeY.value = constraint.y;
-    resizeSize.value = constraint.side;
+    resizeX.value = parseInt(constraint.x, 10);
+    resizeY.value = parseInt(constraint.y, 10);
+    resizeSize.value = parseInt(constraint.side, 10);
+    resizeFormIsValid();
   });
 
   resizeControls.addEventListener('input', function() {
@@ -119,19 +120,7 @@
 
     currentResizer.setConstraint(xValue, yValue, sizeValue);
   }, true);
-
-  resizeX.addEventListener('input', function() {
-    resizeFormIsValid();
-  });
-
-  resizeY.addEventListener('input', function() {
-    resizeFormIsValid();
-  });
-
-  resizeSize.addEventListener('input', function() {
-    resizeFormIsValid();
-  });
-
+  
 
 
   /**
