@@ -72,6 +72,8 @@
     backgroundElement.style.backgroundImage = 'url(' + images[randomImageNumber] + ')';
   };
 
+
+
   /**
    * Проверяет, валидны ли данные, в форме кадрирования.
    * @return {boolean}
@@ -80,6 +82,7 @@
   var resizeY = document.getElementById('resize-y');
   var resizeSize = document.getElementById('resize-size');
   var resizeFwd = document.getElementById('resize-fwd');
+  var resizeControls = document.querySelector('.upload-resize-controls');
   resizeFwd.disabled = true;
   resizeX.required = resizeY.required = resizeSize.required = true;
 
@@ -100,6 +103,23 @@
 
     return false;
   };
+
+  window.addEventListener('resizerchange', function() {
+    var constraint = currentResizer.getConstraint();
+
+    resizeX.value = constraint.x;
+    resizeY.value = constraint.y;
+    resizeSize.value = constraint.side;
+  });
+
+  resizeControls.addEventListener('input', function() {
+    var xValue = parseInt(resizeX.value, 10);
+    var yValue = parseInt(resizeY.value, 10);
+    var sizeValue = parseInt(resizeSize.value, 10);
+
+    currentResizer.setConstraint(xValue, yValue, sizeValue);
+  }, true);
+
   resizeX.addEventListener('input', function() {
     resizeFormIsValid();
   });
@@ -328,5 +348,4 @@
   updateBackground();
 
 })();
-
 
