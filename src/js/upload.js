@@ -72,6 +72,8 @@
     backgroundElement.style.backgroundImage = 'url(' + images[randomImageNumber] + ')';
   };
 
+
+
   /**
    * Проверяет, валидны ли данные, в форме кадрирования.
    * @return {boolean}
@@ -80,6 +82,7 @@
   var resizeY = document.getElementById('resize-y');
   var resizeSize = document.getElementById('resize-size');
   var resizeFwd = document.getElementById('resize-fwd');
+  var resizeControls = document.querySelector('.upload-resize-controls');
   resizeFwd.disabled = true;
   resizeX.required = resizeY.required = resizeSize.required = true;
 
@@ -100,18 +103,24 @@
 
     return false;
   };
-  resizeX.addEventListener('input', function() {
+
+  window.addEventListener('resizerchange', function() {
+    var constraint = currentResizer.getConstraint();
+
+    resizeX.value = parseInt(constraint.x, 10);
+    resizeY.value = parseInt(constraint.y, 10);
+    resizeSize.value = parseInt(constraint.side, 10);
     resizeFormIsValid();
   });
 
-  resizeY.addEventListener('input', function() {
-    resizeFormIsValid();
-  });
+  resizeControls.addEventListener('input', function() {
+    var xValue = parseInt(resizeX.value, 10);
+    var yValue = parseInt(resizeY.value, 10);
+    var sizeValue = parseInt(resizeSize.value, 10);
 
-  resizeSize.addEventListener('input', function() {
-    resizeFormIsValid();
-  });
-
+    currentResizer.setConstraint(xValue, yValue, sizeValue);
+  }, true);
+  
 
 
   /**
@@ -328,5 +337,4 @@
   updateBackground();
 
 })();
-
 
