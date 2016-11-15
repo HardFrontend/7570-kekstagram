@@ -120,6 +120,7 @@
   }, true);
 
 
+
   /**
    * Форма загрузки изображения.
    * @type {HTMLFormElement}
@@ -334,4 +335,3 @@
   updateBackground();
 
 })();
-

@@ -74,9 +74,6 @@ var changeFilter = function(filterID) {
   activeFilter = filterID;
   currentPage = 0;
   allPictures = [];
-  getParams(activeFilter);
-  console.log(activeFilter);
-  console.log(getParams(activeFilter));
   load(PICTURE_LOAD_URL, getParams(), processData);
 };
 
