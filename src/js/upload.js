@@ -118,9 +118,6 @@
 
     currentResizer.setConstraint(xValue, yValue, sizeValue);
   }, true);
-
-
-
   /**
    * Форма загрузки изображения.
    * @type {HTMLFormElement}
