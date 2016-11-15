@@ -18,12 +18,7 @@ var getPicturesElement = function(picture) {
   image.onerror = function() {
     pictureElement.classList.add('picture-load-failure');
   };
-/*  image.onclick = function(event) {
-    event.preventDefault();
-    if(!pictureElement.classList.contains('picture-load-failure')) {
-      gallery.show(pictureId);
-    }
-  };*/
+
   image.src = picture.preview || picture.url;
   return pictureElement;
 };
